@@ -1,0 +1,335 @@
+{
+	"compiler": {
+		"version": "0.8.18+commit.87f61d96"
+	},
+	"language": "Solidity",
+	"output": {
+		"abi": [
+			{
+				"inputs": [
+					{
+						"internalType": "address",
+						"name": "_wormholeRelayer",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_tokenBridge",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "_wormhole",
+						"type": "address"
+					}
+				],
+				"stateMutability": "nonpayable",
+				"type": "constructor"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "NotAnEvmAddress",
+				"type": "error"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint16",
+						"name": "targetChain",
+						"type": "uint16"
+					}
+				],
+				"name": "quoteCrossChainDeposit",
+				"outputs": [
+					{
+						"internalType": "uint256",
+						"name": "cost",
+						"type": "uint256"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes",
+						"name": "payload",
+						"type": "bytes"
+					},
+					{
+						"internalType": "bytes[]",
+						"name": "additionalVaas",
+						"type": "bytes[]"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "sourceAddress",
+						"type": "bytes32"
+					},
+					{
+						"internalType": "uint16",
+						"name": "sourceChain",
+						"type": "uint16"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "deliveryHash",
+						"type": "bytes32"
+					}
+				],
+				"name": "receiveWormholeMessages",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "bytes32",
+						"name": "",
+						"type": "bytes32"
+					}
+				],
+				"name": "seenDeliveryVaaHashes",
+				"outputs": [
+					{
+						"internalType": "bool",
+						"name": "",
+						"type": "bool"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint16",
+						"name": "targetChain",
+						"type": "uint16"
+					},
+					{
+						"internalType": "address",
+						"name": "targetToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					},
+					{
+						"internalType": "address",
+						"name": "token",
+						"type": "address"
+					}
+				],
+				"name": "sendCrossChainDeposit",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint16",
+						"name": "targetChain",
+						"type": "uint16"
+					},
+					{
+						"internalType": "address",
+						"name": "targetToken",
+						"type": "address"
+					},
+					{
+						"internalType": "address",
+						"name": "recipient",
+						"type": "address"
+					},
+					{
+						"internalType": "uint256",
+						"name": "amount",
+						"type": "uint256"
+					}
+				],
+				"name": "sendNativeCrossChainDeposit",
+				"outputs": [],
+				"stateMutability": "payable",
+				"type": "function"
+			},
+			{
+				"inputs": [
+					{
+						"internalType": "uint16",
+						"name": "sourceChain",
+						"type": "uint16"
+					},
+					{
+						"internalType": "bytes32",
+						"name": "sourceAddress",
+						"type": "bytes32"
+					}
+				],
+				"name": "setRegisteredSender",
+				"outputs": [],
+				"stateMutability": "nonpayable",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "tokenBridge",
+				"outputs": [
+					{
+						"internalType": "contract ITokenBridge",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "wormhole",
+				"outputs": [
+					{
+						"internalType": "contract IWormhole",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			},
+			{
+				"inputs": [],
+				"name": "wormholeRelayer",
+				"outputs": [
+					{
+						"internalType": "contract IWormholeRelayer",
+						"name": "",
+						"type": "address"
+					}
+				],
+				"stateMutability": "view",
+				"type": "function"
+			}
+		],
+		"devdoc": {
+			"kind": "dev",
+			"methods": {},
+			"version": 1
+		},
+		"userdoc": {
+			"kind": "user",
+			"methods": {
+				"setRegisteredSender(uint16,bytes32)": {
+					"notice": "Sets the registered address for 'sourceChain' to 'sourceAddress' So that for messages from 'sourceChain', only ones from 'sourceAddress' are valid Assumes only one sender per chain is valid Sender is the address that called 'send' on the Wormhole Relayer contract on the source chain)"
+				}
+			},
+			"version": 1
+		}
+	},
+	"settings": {
+		"compilationTarget": {
+			"CrossChainSwap.sol": "CrossChainSwap"
+		},
+		"evmVersion": "paris",
+		"libraries": {},
+		"metadata": {
+			"bytecodeHash": "ipfs"
+		},
+		"optimizer": {
+			"enabled": false,
+			"runs": 200
+		},
+		"remappings": []
+	},
+	"sources": {
+		"CrossChainSwap.sol": {
+			"keccak256": "0x1609be8482b7b6d18300f9cd0b411b4b836316ee96012e952cc65963bb9451f1",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3161208687b5fe6d532ed9d4ea8e26c1944e4c15b645153da3d0cdf1b0ed43a2",
+				"dweb:/ipfs/QmSkPRMTuNopkkTf9rg72cXutDQRcnYPaTWDMBy4ZXjYWe"
+			]
+		},
+		"lib/Utils.sol": {
+			"keccak256": "0x6c451da51ccef12d088a6e44181ffbd28b7e665f81d5f71762423547ac454694",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://0fe1f4216b0c33f36d6a5f773ceac58ea47622b8346e4796c13c70f9dfb03fe7",
+				"dweb:/ipfs/QmZs6sCX31LV8bxTbXmmV11eqcaXcC755HCHzEofjYM6PX"
+			]
+		},
+		"lib/WormholeRelayerSDK.sol": {
+			"keccak256": "0x472a03372a5bbbe83c550a574149cc783b255b2a8c03170b939332d1657c5abb",
+			"license": "UNLICENSED",
+			"urls": [
+				"bzz-raw://58421fdea2d033ef75d542884a011bef317f01fe1f4fad1dbdb4c34e1e53aae4",
+				"dweb:/ipfs/Qmde8yHS6YK2jD9qZUasarMZVeksG6u3Kk4xSSqcSjpLwD"
+			]
+		},
+		"lib/interfaces/IERC20.sol": {
+			"keccak256": "0x00c839ff53d07d19db2e7cfa1e5133f9ee90a8d64b0e2e57f50446a2d1a3a0e0",
+			"license": "MIT",
+			"urls": [
+				"bzz-raw://3dac621d015a68a5251b1e5d41dda0faf252699bf6e8bcf46a958b29964d9dd1",
+				"dweb:/ipfs/QmP9axjgZv4cezAhALoTemM62sdLtMDJ9MGTxECnNwHgSJ"
+			]
+		},
+		"lib/interfaces/ITokenBridge.sol": {
+			"keccak256": "0x808b67552c15f95ca2da6381179762b7cb95295a7ecafd2c5ee693c04488d4bf",
+			"license": "Apache 2",
+			"urls": [
+				"bzz-raw://cd538427ec9c83dc24652104e41da1e0a2403d47fd72d2460396acbac69f68fe",
+				"dweb:/ipfs/Qmf16ESGhb7dVrswmJujX5KWcEDdhFUCmU6trX9M4qntQk"
+			]
+		},
+		"lib/interfaces/IWETH.sol": {
+			"keccak256": "0x1db59bb7a24fe6b6949a29b7ee9bf4495eaec9984c730666e3ae0f2ca8aacb4d",
+			"license": "Apache 2",
+			"urls": [
+				"bzz-raw://f69c05caedc7d10d7fc44bd1919b039a70625258ab59456a485e33500ba083d7",
+				"dweb:/ipfs/QmXcJPP5pskMH8pmGthKHaJwvEjnmPc9YcypJ9avbboKEU"
+			]
+		},
+		"lib/interfaces/IWormhole.sol": {
+			"keccak256": "0x726133901a485eb12ac5792ec7457e038c7faa90ded11539a3918d1928cb1f8c",
+			"license": "Apache 2",
+			"urls": [
+				"bzz-raw://475c6424ec96c502c6d10adc9d99afef54da291e225a1602c527a90893672f7c",
+				"dweb:/ipfs/QmaV3gaff4mYLsfjB943ArFvyTRNGTYPrt1kE78PaG5kXR"
+			]
+		},
+		"lib/interfaces/IWormholeReceiver.sol": {
+			"keccak256": "0x795d0ddb313e097be7a16d7ff0cce2b50f93955a05cdc68bf6cf7df8ee23cfc1",
+			"license": "Apache 2",
+			"urls": [
+				"bzz-raw://803421c2d0cf4f0727a3fa3450921973004865f161476a0f1869ae396ff2689a",
+				"dweb:/ipfs/QmXWHXY2NgLHN9ebGXCzqwH3n53EWT4z9MdGtrFdPHm4Di"
+			]
+		},
+		"lib/interfaces/IWormholeRelayer.sol": {
+			"keccak256": "0x1517fe326d98cf485334ae07709fe7065b517a09305891d7961a53c5d30fb089",
+			"license": "Apache 2",
+			"urls": [
+				"bzz-raw://cea6bb6d686e003e3c2e91e9270926fed0c94a9c48dbeebf68af7c1231fa8aa7",
+				"dweb:/ipfs/Qmato7ZRk8Ro3we6Kj7SdkqB5uGUrBhT7tvBnYg3CNQXe9"
+			]
+		}
+	},
+	"version": 1
+}
