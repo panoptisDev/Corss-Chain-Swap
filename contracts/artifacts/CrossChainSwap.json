@@ -26652,25 +26652,6 @@
 		{
 			"inputs": [
 				{
-					"internalType": "uint16",
-					"name": "targetChain",
-					"type": "uint16"
-				}
-			],
-			"name": "quoteCrossChainDeposit",
-			"outputs": [
-				{
-					"internalType": "uint256",
-					"name": "cost",
-					"type": "uint256"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
 					"internalType": "bytes",
 					"name": "payload",
 					"type": "bytes"
@@ -26704,25 +26685,6 @@
 		{
 			"inputs": [
 				{
-					"internalType": "bytes32",
-					"name": "",
-					"type": "bytes32"
-				}
-			],
-			"name": "seenDeliveryVaaHashes",
-			"outputs": [
-				{
-					"internalType": "bool",
-					"name": "",
-					"type": "bool"
-				}
-			],
-			"stateMutability": "view",
-			"type": "function"
-		},
-		{
-			"inputs": [
-				{
 					"internalType": "uint16",
 					"name": "targetChain",
 					"type": "uint16"
@@ -26745,6 +26707,16 @@
 				{
 					"internalType": "address",
 					"name": "token",
+					"type": "address"
+				},
+				{
+					"internalType": "uint16",
+					"name": "refundChain",
+					"type": "uint16"
+				},
+				{
+					"internalType": "address",
+					"name": "refundAddress",
 					"type": "address"
 				}
 			],
@@ -26774,6 +26746,16 @@
 					"internalType": "uint256",
 					"name": "amount",
 					"type": "uint256"
+				},
+				{
+					"internalType": "uint16",
+					"name": "refundChain",
+					"type": "uint16"
+				},
+				{
+					"internalType": "address",
+					"name": "refundAddress",
+					"type": "address"
 				}
 			],
 			"name": "sendNativeCrossChainDeposit",
@@ -26797,6 +26779,44 @@
 			"name": "setRegisteredSender",
 			"outputs": [],
 			"stateMutability": "nonpayable",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "uint16",
+					"name": "targetChain",
+					"type": "uint16"
+				}
+			],
+			"name": "quoteCrossChainDeposit",
+			"outputs": [
+				{
+					"internalType": "uint256",
+					"name": "cost",
+					"type": "uint256"
+				}
+			],
+			"stateMutability": "view",
+			"type": "function"
+		},
+		{
+			"inputs": [
+				{
+					"internalType": "bytes32",
+					"name": "",
+					"type": "bytes32"
+				}
+			],
+			"name": "seenDeliveryVaaHashes",
+			"outputs": [
+				{
+					"internalType": "bool",
+					"name": "",
+					"type": "bool"
+				}
+			],
+			"stateMutability": "view",
 			"type": "function"
 		},
 		{

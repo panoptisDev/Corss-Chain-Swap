@@ -8,7 +8,7 @@ import {
 } from "@ant-design/icons";
 import NetworkList from "../NetworkList.json";
 import { ethers } from 'ethers';
-import { sendTransfer } from '../../services/useTransfer'
+import { sendTransferNative, sendTransfer } from '../../services/useTransfer'
 import { useSendTransaction, useWaitForTransaction } from "wagmi";
 import { erc20ABI } from "wagmi";
 import TokenBridgeAbi from '../json/TokenBridgeABI.json';
@@ -24,10 +24,10 @@ function Swap() {
   const [AvailableBalance, setAvailableBalance] = useState(0);
   const [Amount, setAmount] = useState(0);
   const [DestinationAddress, setDestinationAddress] = useState("");
-  const [NetworkOne, setNetworkOne] = useState(NetworkList[0]);
-  const [NetworkTwo, setNetworkTwo] = useState(NetworkList[1]);
+  const [NetworkOne, setNetworkOne] = useState(NetworkList[1]);
+  const [NetworkTwo, setNetworkTwo] = useState(NetworkList[2]);
   const [SelectTokens, setSelectTokens] = useState(NetworkOne.tokens);
-  const [SelectedToken, setSelectedToken] = useState(NetworkList[0].tokens[0]);
+  const [SelectedToken, setSelectedToken] = useState(NetworkList[1].tokens[0]);
   const [WrappedToken, setWrappedToken] = useState("...");
   const [WrappedTokenName, setWrappedTokenName] = useState("");
   const [WrappedTokenSymbol, setWrappedTokenSymbol] = useState("");
@@ -45,36 +45,48 @@ function Swap() {
   const { connect } = useConnect({
     connector: new MetaMaskConnector(),
   });
-  async function sendTransaction() {  
+  async function sendTransaction() {
     setIsLoading(true);
     setIsSuccess(false);
     setTxDetails({
-      to:DestinationAddress
+      to: DestinationAddress
     })
-    try{
+    try {
       try {
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
           params: [{ chainId: `0x${NetworkOne.chainId.toString(16)}` }], // chainId must be in hexadecimal numbers
         });
-      } catch (e) {}
+      } catch (e) { }
       await connect()
-      await sendTransfer(NetworkOne, NetworkTwo, DestinationAddress, Amount * 1e18,WrappedToken)
+      if (SelectedToken.address == "native") {
+
+        await sendTransferNative(NetworkOne, NetworkTwo, DestinationAddress, Amount * 1e18, WrappedToken, UpdateWrapped)
+      } else {
+        await sendTransfer(NetworkOne, NetworkTwo, DestinationAddress, Amount * 1e18, SelectedToken, WrappedToken, UpdateWrapped)
+      }
       setIsLoading(false);
       setIsSuccess(true);
-    }catch(e){
-    console.error(e);
+
+      resetAll()
+
+    } catch (e) {
+      console.error(e);
       setIsLoading(false);
       setIsSuccess(false);
     }
-    
+
+  }
+  function resetAll(){
+    UpdateBlanace()
+    setAmount(0)
+    setDestinationAddress("")
   }
 
   function handleSlippageChange(e) {
     setSlippage(e.target.value);
   }
-  async function AddWrappedToken() {
-
+  async function changeNetworkMetamask(Network) {
     // Check if MetaMask is installed
     // MetaMask injects the global API into window.ethereum
     if (window.ethereum) {
@@ -82,7 +94,7 @@ function Swap() {
         // check if the chain to connect to is installed
         await window.ethereum.request({
           method: 'wallet_switchEthereumChain',
-          params: [{ chainId: `0x${NetworkTwo.chainId.toString(16)}` }], // chainId must be in hexadecimal numbers
+          params: [{ chainId: `0x${Network.chainId.toString(16)}` }], // chainId must be in hexadecimal numbers
         });
       } catch (error) {
         // This error code indicates that the chain has not been added to MetaMask
@@ -93,10 +105,10 @@ function Swap() {
               method: 'wallet_addEthereumChain',
               params: [
                 {
-                  chainId: `0x${NetworkTwo.chainId.toString(16)}`,
-                  chainName: NetworkTwo.title,
-                  rpcUrl: NetworkTwo.rpc,
-                  blockExplorerUrl: NetworkTwo.explorer,
+                  chainId: `0x${Network.chainId.toString(16)}`,
+                  chainName: Network.title,
+                  rpcUrl: Network.rpc,
+                  blockExplorerUrl: Network.explorer,
                 },
               ],
             });
@@ -110,6 +122,11 @@ function Swap() {
       });
     }
     await connect()
+  }
+  async function AddWrappedToken() {
+
+    await changeNetworkMetamask(NetworkTwo)
+
     // Use wallet_watchAsset
     await ethereum.request({
       method: "wallet_watchAsset",
@@ -133,32 +150,84 @@ function Swap() {
 
     const targetNetwork = NetworkTwo;
 
+
     let targetProvider = new ethers.providers.JsonRpcProvider(targetNetwork.rpc);
     const targetTokenBridgeWithoutSigner = new ethers.Contract(targetNetwork.tokenBridgeAddress, TokenBridgeAbi.abi, targetProvider);
-    let hexstring = tryNativeToHexString(NetworkOne.testToken, NetworkOne.wormholeChainId);
-    let bytes = Buffer.from(hexstring, "hex");
-    let wrappedTokenAddress = await targetTokenBridgeWithoutSigner.wrappedAsset(NetworkOne.wormholeChainId, bytes);
-    setWrappedToken(wrappedTokenAddress)
+    if (SelectedToken.address == "native") {
+      let hexstring = tryNativeToHexString(NetworkOne.testToken, NetworkOne.wormholeChainId);
+      let bytes = Buffer.from(hexstring, "hex");
+      let wrappedTokenAddress = await targetTokenBridgeWithoutSigner.wrappedAsset(NetworkOne.wormholeChainId, bytes);
+      setWrappedToken(wrappedTokenAddress)
 
-    const provider = new ethers.providers.JsonRpcProvider(NetworkTwo.rpc);
+      const provider = new ethers.providers.JsonRpcProvider(NetworkTwo.rpc);
 
-    const contract = new ethers.Contract(
-      wrappedTokenAddress,
-      erc20ABI,
-      provider
-    );
-    let symbol_name = "";
-    try {
-      symbol_name = await contract.symbol()
-    } catch (error) {
+      const contract = new ethers.Contract(
+        wrappedTokenAddress,
+        erc20ABI,
+        provider
+      );
+      let symbol_name = "";
+      try {
+        symbol_name = await contract.symbol()
+      } catch (error) {
 
+      }
+      setWrappedTokenSymbol(symbol_name);
+      if (symbol_name != "") {
+        setWrappedTokenName(`( ${symbol_name} )`);
+      } else {
+        setWrappedTokenName(``);
+      }
+    } else {
+      let hexstring = tryNativeToHexString(SelectedToken.address, NetworkOne.wormholeChainId);
+      let bytes = Buffer.from(hexstring, "hex");
+      let wrappedTokenAddress = await targetTokenBridgeWithoutSigner.wrappedAsset(NetworkOne.wormholeChainId, bytes);
+      setWrappedToken(wrappedTokenAddress)
+
+      const provider = new ethers.providers.JsonRpcProvider(NetworkTwo.rpc);
+
+      const contract = new ethers.Contract(
+        wrappedTokenAddress,
+        erc20ABI,
+        provider
+      );
+      let symbol_name = "";
+      try {
+        symbol_name = await contract.symbol()
+      } catch (error) {
+
+      }
+      setWrappedTokenSymbol(symbol_name);
+      if (symbol_name != "") {
+        setWrappedTokenName(`( ${symbol_name} )`);
+      } else {
+        setWrappedTokenName(``);
+      }
     }
-    setWrappedTokenSymbol(symbol_name);
-    if (symbol_name != ""){
-      setWrappedTokenName(`( ${symbol_name} )`);
-    }else{      
-      setWrappedTokenName(``);
-    }
+
+  }
+
+  async function AddAsset() {
+    await changeNetworkMetamask(NetworkOne)
+
+    // Use wallet_watchAsset
+    await ethereum.request({
+      method: "wallet_watchAsset",
+      params: {
+        type: "ERC20",
+        options: {
+          address: SelectedToken.address,
+          symbol: SelectedToken.name,
+          decimals: SelectedToken.decimals
+
+        },
+      },
+    })
+    messageApi.open({
+      type: 'success',
+      content: `${SelectedToken.name} added to Metamask!`,
+      duration: 2,
+    });
   }
 
   async function UpdateBlanace() {
@@ -180,7 +249,7 @@ function Swap() {
       );
       let balance = 0.00;
       try {
-        balance = await contract.balanceOf(address);
+        balance = Number(ethers.utils.formatEther(await contract.balanceOf(address)));
       } catch (e) {
       }
       balance = balance == 0 ? "0.00" : balance;
@@ -226,10 +295,11 @@ function Swap() {
 
   useEffect(() => {
     UpdateWrapped();
-  }, [NetworkOne, NetworkTwo, address])
+  }, [NetworkOne, NetworkTwo])
 
   useEffect(() => {
     UpdateBlanace();
+    UpdateWrapped();
   }, [SelectedToken, address])
 
   useEffect(() => {
@@ -252,7 +322,7 @@ function Swap() {
       messageApi.open({
         type: 'success',
         content: 'Transaction Successful',
-        duration: 1.5,
+        duration: 3,
       })
     } else if (txDetails.to) {
       messageApi.open({
@@ -293,10 +363,12 @@ function Swap() {
           {NetworkList?.map((e, i) => {
             if (changeNetwork == 2 && NetworkOne == e) return <></>;
             if (changeNetwork == 1 && NetworkTwo == e) return <></>;
+
             return (
               <div
                 className="tokenChoice"
                 key={i}
+                disabled={!e.active}
                 onClick={() => modifyNetwork(i)}
               >
                 <img src={e.img} alt={e.ticker} className="tokenLogo" />
@@ -386,7 +458,9 @@ function Swap() {
                 <div className="flex items-center">
                   {SelectedToken.address != "native" ? <><div
                     className=" dropdown tooltip tooltip-warning dropdown-end"
-                    data-tip="Add WETH to Metamask"
+                    data-tip={"Add " + SelectedToken.name + " to Metamask"}
+                   
+
                   >
                     <label
                       tabIndex={0}
@@ -410,6 +484,7 @@ function Swap() {
                       tabIndex={0}
                       className="w-32 p-1 rounded-lg shadow-lg dropdown-content menu"
                       style={{ backgroundColor: "rgb(22, 33, 46)" }}
+                      onClick={AddAsset}
                     >
                       <li role="button">
                         <span>
@@ -568,7 +643,9 @@ function Swap() {
         </div>
 
 
-        <div className="swapButton mt-8" onClick={sendTransaction} disabled={DestinationAddress === "" || !(Amount > 0) || !isConnected || isLoading} >Swap</div>
+        <div className="swapButton mt-8" onClick={sendTransaction} disabled={DestinationAddress === "" || !(Amount > 0) || !isConnected || isLoading} >
+          {WrappedToken === "0x0000000000000000000000000000000000000000" ? "Attest Token & Swap" : "Swap"}
+        </div>
       </div>
     </>
   );
