@@ -29,8 +29,8 @@
                 "ticker": "USDT",
                 "img": "https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
                 "name": "Tether USD",
-                "address": "0xdac17f958d2ee523a2206206994597c13d831ec7",
-                "testToken": "0xdac17f958d2ee523a2206206994597c13d831ec7",
+                "address": "0x3c1373d16927748BBA6bEe77f14E174593616A7c",
+                "testToken": "0xe59adc082d5ba7104795c3b239e224fc8888ca45",
                 "decimals": 6,
                 "active": true
             },
@@ -41,6 +41,123 @@
                 "address": "0xAc6cB734a4678dd336f3C3aC2eB423f6A7868F7f",
                 "testToken": "0x9d05da8f87c0e6748b4f25de3bf9c47b8fad8fd4",
                 "decimals": 6,
+                "active": true
+            }
+        ]
+    },
+    {
+        "source": "acala-mandala",
+        "title": "Acala Mandala",
+        "main_chain":"acala",
+        "img": "https://acala.network/favicon.ico",
+        "rpc": "https://eth-rpc-tc9.aca-staging.network",
+        "native": "Acala",
+        "wormholeChainId": 12,
+        "testToken": "0x0000000000000000000100000000000000000000",
+     
+        "tokenBridgeAddress": "0xebA00cbe08992EdD08ed7793E07ad6063c807004",
+        "bridgeAddress": "0x4377B49d559c0a9466477195C6AdC3D433e265c0",
+        "CrossChainSwap":"old-method",
+        "active": true ,
+        "explorer": "https://blockscout.acala.network/",
+        "chainId": 597,
+        "tokens": [
+            {
+                "ticker": "Acala",
+                "img": "https://acala.network/favicon.ico",
+                "name": "Acala (ACA)",
+                "address": "native",
+                "testToken": "0x0000000000000000000100000000000000000000",
+                "decimals": 18,
+                "active": true
+            },
+            {
+                "ticker": "DOT",
+                "img": "https://cryptologos.cc/logos/polkadot-new-dot-logo.svg?v=026",
+                "name": "Polkadot (DOT)",
+                "address": "0x0000000000000000000100000000000000000002",
+                "testToken": "0x0000000000000000000100000000000000000002",
+                "decimals": 10,
+                "active": true
+            },  
+            {
+                "ticker": "xcDOT",
+                "img": "https://assets.coingecko.com/coins/images/28875/standard/vDOT.png?1696527852",
+                "name": "Voucher DOT (xcDOT)",
+                "address": "0x17f65598cf5cf383d655cf37ecc5a86a65e104d8",
+                "testToken": "0x17f65598cf5cf383d655cf37ecc5a86a65e104d8",
+                "decimals": 10,
+                "active": true
+            },
+            {
+                "ticker": "USDT",
+                "img": "https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
+                "name": "Tether USD",
+                "address": "0x492f4e41bd378d6dbd92ab645ac4020b01784db3",
+                "testToken": "0x492f4e41bd378d6dbd92ab645ac4020b01784db3",
+                "decimals": 6,
+                "active": true
+            },
+            {
+                "ticker": "ARB",
+                "img": "https://cryptologos.cc/logos/arbitrum-arb-logo.svg?v=026",
+                "name": "Arbitrum (ARB)",
+                "address": "0xef5e517a21d33467e34b3ccd64114a82ba87319a",
+                "testToken": "0xef5e517a21d33467e34b3ccd64114a82ba87319a",
+                "decimals": 18,
+                "active": true
+            },
+            {
+                "ticker": "BUSD",
+                "img": "https://cryptologos.cc/logos/binance-usd-busd-logo.svg?v=026",
+                "name": "Binance USD (BUSD)",
+                "address": "0x909e773276aa63475edf8a3cc7e07b97b971de61",
+                "testToken": "0x909e773276aa63475edf8a3cc7e07b97b971de61",
+                "decimals": 18,
+                "active": true
+            },
+            {
+                "ticker": "LINK",
+                "img": "https://cdn.moralis.io/eth/0x514910771af9ca656af840dff83e8264ecf986ca.png",
+                "name": "ChainLink Token (LINK)",
+                "address": "0x604cae74cdc395a8824557d422fccf8db6809a2f",
+                "testToken": "0x604cae74cdc395a8824557d422fccf8db6809a2f",
+                "decimals": 18,
+                "active": true
+            },{
+                "ticker": "DAI",
+                "img": "https://cdn.moralis.io/eth/0x6b175474e89094c44da98b954eedeac495271d0f.png",
+                "name": "Dai Stablecoin (DAI)",
+                "address": "0x81dc17e9fa8a708d21bbd3c0aabc26709ab55a35",
+                "testToken": "0x81dc17e9fa8a708d21bbd3c0aabc26709ab55a35",
+                "decimals": 18,
+                "active": true
+            },
+            {
+                "ticker": "TAI",
+                "img": "https://img.icons8.com/external-black-fill-lafs/250/4B4B4B/external-Acala-Token-cryptocurrency-black-fill-lafs-2.png",
+                "name": "Taiga (TAI)",
+                "address": "0x892ddd9387dbdecedaef878bd7acf8603109227f",
+                "testToken": "0x892ddd9387dbdecedaef878bd7acf8603109227f",
+                "decimals": 12,
+                "active": true
+            },
+            {
+                "ticker": "aSEED",
+                "img": "https://img.icons8.com/external-black-fill-lafs/250/4B4B4B/external-Acala-Token-cryptocurrency-black-fill-lafs-2.png",
+                "name": "aUSD SEED (aSEED)",
+                "address": "0x0000000000000000000100000000000000000001",
+                "testToken": "0x0000000000000000000100000000000000000001",
+                "decimals": 12,
+                "active": true
+            },
+            {
+                "ticker": "LDO",
+                "img": "https://img.icons8.com/external-black-fill-lafs/250/4B4B4B/external-Acala-Token-cryptocurrency-black-fill-lafs-2.png",
+                "name": "Lido DAO Token (LDO)",
+                "address": "0xd1729649ee6d5e3740ee2f9254c4226aabd0dc5b",
+                "testToken": "0xd1729649ee6d5e3740ee2f9254c4226aabd0dc5b",
+                "decimals": 18,
                 "active": true
             }
         ]
@@ -156,6 +273,81 @@
                 "name": "USDT",
                 "address": "0x4b0ff2e3d7fef9205f88f54a9fed361cea53ef6f",
                 "testToken": "0x3d28719ae5b05c305f87353418560847a9c6708c",
+                "decimals": 18,
+                "active": true
+            }
+        ]
+    },  {
+        "source": "arbitrum-goerli",
+        "title": "Arbitrum Goerli",
+        "img": "https://arbitrum.io/favicon.ico",
+        "rpc": "https://goerli-rollup.arbitrum.io/rpc",
+        "native": "ArbitrumETH",
+        "main_chain":"arbitrum",
+        "wormholeChainId": 23,
+        "bridgeAddress": "0xC7A204bDBFe983FCD8d8E61D02b475D4073fF97e",
+        "tokenBridgeAddress": "0x23908A62110e21C04F3A4e011d24F901F911744A",
+        "testToken": "0xc4b0a140d4c211e4e67fd9cbf59af42d8ee63f9b",
+       
+        "CrossChainSwap":"0xf87C5fbAED26Cb0684112a96c75fC754509FE20d",
+        "explorer": "https://goerli.arbiscan.io/",
+        "chainId": 421613,
+        "active": true,
+        "tokens": [
+            {
+                "ticker": "ArbitrumETH",
+                "img": "https://arbitrum.io/favicon.ico",
+                "name": "ArbitrumETH",
+                "address": "native",
+                "testToken": "0xc4b0a140d4c211e4e67fd9cbf59af42d8ee63f9b",
+                "decimals": 18,
+                "active": true
+            }, {
+                "ticker": "USDT",
+                "img": "https://cdn.moralis.io/eth/0xdac17f958d2ee523a2206206994597c13d831ec7.png",
+                "name": "USDT",
+                "address": "0x265b25e22bcd7f10a5bd6e6410f10537cc7567e8",
+                "testToken": "0x067763aa51e4c7c30ea26dfe08ce2fea5683cc85",
+                "decimals": 6,
+                "active": true
+            }, {
+                "ticker": "BNB",
+                "img": "https://img.icons8.com/external-black-fill-lafs/250/DEB718/external-BNB-cryptocurrency-black-fill-lafs.png",
+                "name": "BNB",
+                "address": "0x7508CB688e6D7A0c24352fcEA4EE8C1605e35f77",
+                "testToken": "0xf717f9777d371fd3febe89a9862e8d2b20b4d673",
+                "decimals": 18,
+                "active": true
+            }, {
+                "ticker": "USDC",
+                "img": "https://cdn.moralis.io/eth/0xa0b86991c6218b36c1d19d4a2e9eb0ce3606eb48.png",
+                "name": "USD Coin",
+                "address": "0x19c8f7B8BA7a151d6825924446A596b6084a36ae",
+                "testToken": "0x19c8f7B8BA7a151d6825924446A596b6084a36ae",
+                "decimals": 6,
+                "active": true
+            }, {
+                "ticker": "LINK",
+                "img": "https://cdn.moralis.io/eth/0x514910771af9ca656af840dff83e8264ecf986ca.png",
+                "name": "ChainLink Token (LINK)",
+                "address": "0xd14838A68E8AFBAdE5efb411d5871ea0011AFd28",
+                "testToken": "0xb9028c64a0e624bb7d235f42de0191bfadbc057d",
+                "decimals": 18,
+                "active": true
+            }, {
+                "ticker": "LPT",
+                "img": "/tokens/icon-livepeer.png",
+                "name": "Livepeer Token (LPT)",
+                "address": "0x57ff598a2460F488aA483AEbd3a35d2aEa0E22B1",
+                "testToken": "0x57ff598a2460F488aA483AEbd3a35d2aEa0E22B1",
+                "decimals": 18,
+                "active": true
+            }, {
+                "ticker": "Matic",
+                "img": "https://cryptologos.cc/logos/polygon-matic-logo.svg?v=026",
+                "name": "Matic Token (Matic)",
+                "address": "0x7610A960Cc1b40203214430279644C813902dB0a",
+                "testToken": "0x50fd4064cc536a964e2e0dc7b3fe2313ab386bea",
                 "decimals": 18,
                 "active": true
             }
