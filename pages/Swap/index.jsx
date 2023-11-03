@@ -453,7 +453,7 @@ function Swap() {
             <div>
               <div className="flex justify-between">
                 <label className="block text-left text-xs">
-                  I want to transfer from Ethereum
+                  I want to transfer from {NetworkOne.title}
                 </label>
                 <div className="flex items-center">
                   {SelectedToken.address != "native" ? <><div
@@ -530,7 +530,7 @@ function Swap() {
               <div className="asset-text">
                 <div className="asset" onClick={() => setIsOpenToken(true)}>
                   <img src={SelectedToken.img} alt="assetOneLogo" className="assetLogo" />
-                  {SelectedToken.ticker}
+                  {SelectedToken.name}
                   <DownOutlined />
                 </div>
                 <div className="text-end">
