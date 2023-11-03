@@ -3,7 +3,7 @@ import { ethers } from 'ethers';
 import Web3 from 'web3';
 import CrossChainABI from '../contracts/artifacts/CrossChainSwap.json'
 import { relayer, ChainName, CHAINS } from "@certusone/wormhole-sdk"
-import TokenBridgeAbi from './json/TokenBridgeAbi.json'
+import TokenBridgeAbi from './json/TokenBridgeABI.json'
 import { getEmitterAddressEth, parseSequenceFromLogEth, attestFromEth, tryNativeToHexString, getIsTransferCompletedEth } from "@certusone/wormhole-sdk";
 import ERC20ABI from './json/ERC20ABI.json'
 
